@@ -1,0 +1,6 @@
+streamlit>=1.30.0
+chromadb>=0.4.22
+ddgs>=1.0.0
+openai>=1.55.3
+httpx<0.28
+python-dotenv>=1.0.1
