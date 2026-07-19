@@ -37,7 +37,6 @@ if "quiz" not in st.session_state:
     st.session_state.quiz = None
     st.session_state.context_used = None
     st.session_state.answers_revealed = {}
-    st.session_state.question_answers = {}  # Track user's answer for each question
     st.session_state.score = 0
     st.session_state.attempted = 0
 
@@ -57,7 +56,6 @@ if generate_clicked:
             st.session_state.quiz = quiz
             st.session_state.context_used = context_used
             st.session_state.answers_revealed = {}
-            st.session_state.question_answers = {}  # Reset answer tracking
             st.session_state.score = 0
             st.session_state.attempted = 0
             st.sidebar.success("Quiz generated!")
@@ -101,29 +99,12 @@ else:
             if choice is None:
                 st.warning("Pick an option first.")
             else:
-                # Track the answer and whether this is the first submission
-                previous_answer = st.session_state.question_answers.get(i)
                 already_revealed = st.session_state.answers_revealed.get(i, False)
-                
-                # Store the current answer
-                st.session_state.question_answers[i] = choice
-                
-                # Only count score changes if this is the first submission
+                st.session_state.answers_revealed[i] = True
                 if not already_revealed:
                     st.session_state.attempted += 1
                     if choice == q["correct_answer"]:
                         st.session_state.score += 1
-                else:
-                    # On re-submission, adjust score only if answer changed
-                    if previous_answer != choice:
-                        # Remove old score if previously correct
-                        if previous_answer == q["correct_answer"]:
-                            st.session_state.score -= 1
-                        # Add new score if now correct
-                        if choice == q["correct_answer"]:
-                            st.session_state.score += 1
-                
-                st.session_state.answers_revealed[i] = True
 
         if st.session_state.answers_revealed.get(i):
             correct = q["correct_answer"]

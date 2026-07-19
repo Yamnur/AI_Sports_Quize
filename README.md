@@ -120,7 +120,7 @@ On first launch it automatically populates ChromaDB from `data/sports_facts.json
 6. Expand **"Inspect Ground Truth"** to audit exactly what context grounded the quiz.
 7. Copy the plain-text block at the bottom straight into a social post.
 
-## Extending the knowledge base
+## Extending the knowledge baser
 
 Add more facts to `data/sports_facts.json` (same `{"sport": ..., "fact": ...}` shape),
 then force a rebuild:
